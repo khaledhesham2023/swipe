@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:dragEdge="left"
+    android:id="@+id/root"
     app:mode="same_level">
 
     <androidx.constraintlayout.widget.ConstraintLayout

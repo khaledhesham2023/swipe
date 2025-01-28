@@ -14,13 +14,12 @@ import android.view.View.OnTouchListener
 import android.view.ViewConfiguration
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.example.swiper.swipelayout.Model
 import kotlin.math.abs
 
 class MainActivity : AppCompatActivity() {
@@ -28,167 +27,161 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        val swipeAdapter = SwipeAdapter()
         val recycler = findViewById<RecyclerView>(R.id.recyclerList)
+        val swipeAdapter = SwipeAdapter(
+            arrayListOf(
+                Model(1,"text 1"),
+                Model(2,"text 2"),
+                Model(3,"text 3"),
+                Model(4,"text 4"),
+                Model(5,"text 5"),
+                Model(6,"text 6"),
+                Model(7,"text 1"),
+                Model(8,"text 2"),
+                Model(9,"text 3"),
+                Model(10,"text 4"),
+                Model(11,"text 5"),
+                Model(12,"text 6"),
+                Model(13,"text 1"),
+                Model(14,"text 2"),
+                Model(15,"text 3"),
+                Model(16,"text 4"),
+                Model(17,"text 5"),
+                Model(18,"text 6"),
+                Model(19,"text 1"),
+                Model(20,"text 2"),
+                Model(21,"text 3"),
+                Model(22,"text 4"),
+                Model(23,"text 5"),
+                Model(24,"text 6"),
+            )
+        )
         recycler.adapter = swipeAdapter
-        val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.Callback() {
-
-
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                Log.i("TAGGG", "onMove")
-                return true
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                Toast.makeText(this@MainActivity, "Action Triggered", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun getMoveThreshold(viewHolder: RecyclerView.ViewHolder): Float {
-                Log.i("TAGGG", "getMoveThreshold")
-                return super.getMoveThreshold(viewHolder)
-            }
-
-            override fun onChildDraw(
-                canvas: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
-                dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean
-            ) {
-//                Log.i("TAGGG","onChildDraw")
-                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-                    val viewItem = viewHolder.itemView
-                    if (dX > -253){
-                        paintDrawCommandToStart(canvas, viewItem, R.layout.remove_layout, dX)
-
-                    } else {
-
-                    }
-                }
-
-
-                super.onChildDraw(
-                    canvas,
-                    recyclerView,
-                    viewHolder,
-                    dX,
-                    dY,
-                    actionState,
-                    isCurrentlyActive
-                )
-            }
-
-            override fun getMovementFlags(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder
-            ): Int {
-                return makeMovementFlags(0, ItemTouchHelper.END)
-            }
-
-            override fun convertToAbsoluteDirection(flags: Int, layoutDirection: Int): Int {
-                Log.i("TAGGG", "convertToAbsoluteDirection")
-                return super.convertToAbsoluteDirection(flags, layoutDirection)
-            }
-
-            override fun canDropOver(
-                recyclerView: RecyclerView,
-                current: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                Log.i("TAGGG", "canDropOver")
-                return super.canDropOver(recyclerView, current, target)
-            }
-
-            override fun isLongPressDragEnabled(): Boolean {
-                Log.i("TAGGG", "isLongPressDragEnabled")
-                return super.isLongPressDragEnabled()
-            }
-
-            override fun isItemViewSwipeEnabled(): Boolean {
-                Log.i("TAGGG", "isItemViewSwipeEnabled")
-                return super.isItemViewSwipeEnabled()
-            }
-
-            override fun getBoundingBoxMargin(): Int {
-                Log.i("TAGGG", "getBoundingBoxMargin")
-                return super.getBoundingBoxMargin()
-            }
-
-            override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
-                Log.i("TAGGG", "getSwipeThreshold")
-                return super.getSwipeThreshold(viewHolder)
-            }
-
-            override fun getSwipeEscapeVelocity(defaultValue: Float): Float {
-                Log.i("TAGGG", "getSwipeEscapeVelocity")
-                return super.getSwipeEscapeVelocity(defaultValue)
-            }
-
-            override fun getSwipeVelocityThreshold(defaultValue: Float): Float {
-                Log.i("TAGGG", "getSwipeVelocityThreshold")
-                return super.getSwipeVelocityThreshold(defaultValue)
-            }
-
-            override fun chooseDropTarget(
-                selected: RecyclerView.ViewHolder,
-                dropTargets: MutableList<RecyclerView.ViewHolder>,
-                curX: Int,
-                curY: Int
-            ): RecyclerView.ViewHolder {
-                Log.i("TAGGG", "chooseDropTarget")
-                return super.chooseDropTarget(selected, dropTargets, curX, curY)
-            }
-
-            override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-                Log.i("TAGGG", "onSelectedChanged")
-                super.onSelectedChanged(viewHolder, actionState)
-            }
-
-            override fun onMoved(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                fromPos: Int,
-                target: RecyclerView.ViewHolder,
-                toPos: Int,
-                x: Int,
-                y: Int
-            ) {
-                Log.i("TAGGG", "onMoved")
-                super.onMoved(recyclerView, viewHolder, fromPos, target, toPos, x, y)
-            }
-
-            override fun clearView(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder
-            ) {
-                super.clearView(recyclerView, viewHolder)
-            }
-
-            override fun onChildDrawOver(
-                c: Canvas,
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder?,
-                dX: Float,
-                dY: Float,
-                actionState: Int,
-                isCurrentlyActive: Boolean
-            ) {
-
-                super.onChildDrawOver(
-                    c,
-                    recyclerView,
-                    viewHolder,
-                    dX,
-                    dY,
-                    actionState,
-                    isCurrentlyActive
-                )
-            }
-        })
-        itemTouchHelper.attachToRecyclerView(recycler)
     }
+//        val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.Callback() {
+//
+//
+//            override fun onMove(
+//                recyclerView: RecyclerView,
+//                viewHolder: RecyclerView.ViewHolder,
+//                target: RecyclerView.ViewHolder
+//            ): Boolean {
+//                Log.i("TAGGG", "onMove")
+//                return true
+//            }
+//
+//            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+//                Toast.makeText(this@MainActivity, "Action Triggered", Toast.LENGTH_SHORT).show()
+//            }
+//
+//            override fun getMoveThreshold(viewHolder: RecyclerView.ViewHolder): Float {
+//                Log.i("TAGGG", "getMoveThreshold")
+//                return super.getMoveThreshold(viewHolder)
+//            }
+//
+//            override fun onChildDraw(
+//                canvas: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
+//                dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean
+//            ) {
+////                Log.i("TAGGG","onChildDraw")
+//                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+//                    val viewItem = viewHolder.itemView
+//                    if (willActionBeTriggered(dX,viewItem.width)){
+//                        paintDrawCommandToStart(canvas, viewItem, R.layout.remove_layout, dX)
+//                    } else {
+//                    }
+//                }
+//
+//                super.onChildDraw(
+//                    canvas,
+//                    recyclerView,
+//                    viewHolder,
+//                    dX,
+//                    dY,
+//                    actionState,
+//                    isCurrentlyActive
+//                )
+//            }
+//
+//            override fun getMovementFlags(
+//                recyclerView: RecyclerView,
+//                viewHolder: RecyclerView.ViewHolder
+//            ): Int {
+//                return makeMovementFlags(0, ItemTouchHelper.END)
+//            }
+//
+//            override fun canDropOver(
+//                recyclerView: RecyclerView,
+//                current: RecyclerView.ViewHolder,
+//                target: RecyclerView.ViewHolder
+//            ): Boolean {
+//                Log.i("TAGGG", "canDropOver")
+//                return super.canDropOver(recyclerView, current, target)
+//            }
+//
+//            override fun isLongPressDragEnabled(): Boolean {
+//                Log.i("TAGGG", "isLongPressDragEnabled")
+//                return super.isLongPressDragEnabled()
+//            }
+//
+//            override fun isItemViewSwipeEnabled(): Boolean {
+//                Log.i("TAGGG", "isItemViewSwipeEnabled")
+//                return super.isItemViewSwipeEnabled()
+//            }
+//
+//            override fun getBoundingBoxMargin(): Int {
+//                Log.i("TAGGG", "getBoundingBoxMargin")
+//                return super.getBoundingBoxMargin()
+//            }
+//
+//            override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
+//                Log.i("TAGGG", "getSwipeThreshold")
+//                return super.getSwipeThreshold(viewHolder)
+//            }
+//
+//            override fun getSwipeEscapeVelocity(defaultValue: Float): Float {
+//                Log.i("TAGGG", "getSwipeEscapeVelocity")
+//                return super.getSwipeEscapeVelocity(defaultValue)
+//            }
+//
+//            override fun getSwipeVelocityThreshold(defaultValue: Float): Float {
+//                Log.i("TAGGG", "getSwipeVelocityThreshold")
+//                return super.getSwipeVelocityThreshold(defaultValue)
+//            }
+//
+//            override fun chooseDropTarget(
+//                selected: RecyclerView.ViewHolder,
+//                dropTargets: MutableList<RecyclerView.ViewHolder>,
+//                curX: Int,
+//                curY: Int
+//            ): RecyclerView.ViewHolder {
+//                Log.i("TAGGG", "chooseDropTarget")
+//                return super.chooseDropTarget(selected, dropTargets, curX, curY)
+//            }
+//
+//            override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+//                Log.i("TAGGG", "onSelectedChanged")
+//                super.onSelectedChanged(viewHolder, actionState)
+//            }
+//
+//            override fun onMoved(
+//                recyclerView: RecyclerView,
+//                viewHolder: RecyclerView.ViewHolder,
+//                fromPos: Int,
+//                target: RecyclerView.ViewHolder,
+//                toPos: Int,
+//                x: Int,
+//                y: Int
+//            ) {
+//                Log.i("TAGGG", "onMoved")
+//                super.onMoved(recyclerView, viewHolder, fromPos, target, toPos, x, y)
+//            }
+//        })
+//        itemTouchHelper.attachToRecyclerView(recycler)
+
+
 }
+
 
 /**
  * For encapsulation of resources
@@ -240,7 +233,7 @@ private fun getBackgroundRectangle(viewItem: View, dX: Float): RectF {
 //    Log.d("TAGGG", "left ${dX} top ${viewItem.top.toFloat()} right ${viewItem.right.toFloat()} bottom ${viewItem.bottom.toFloat()}")
     return RectF(
         viewItem.left.toFloat(), viewItem.top.toFloat(),
-        viewItem.left.toFloat()+ dX, viewItem.bottom.toFloat()
+        viewItem.left.toFloat() + dX, viewItem.bottom.toFloat()
     )
 }
 
